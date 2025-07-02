@@ -199,19 +199,19 @@ def calcular_promedio_matriz(matriz_numeros:list) -> list:
         promedios[i] = acumulador_columnas[i] / contador_columnas[i]
     return promedios
 
-def cantidad_notas(matriz_notas: list) -> list:
+def cantidad_notas(matriz_notas: list, indice_materia: int) -> list:
     '''
     contabiliza la cantidad de notas que se repiten en una matriz de notas
     Args:
         matriz_notas(list): es la matriz donde se contabilizaran las notas repetidas
+        indice_materia(int): indica el numero de materia que se recuenta
     Return:
         list: lista de cantidad de notas repetidas, donde cada columna representa la calificacion.
     '''
-    contador = iniciar_matriz(5, 10, 0)
-    for fila in matriz_notas:
-        for j in range(5):
-            nota = fila[j]
-            contador[j][nota - 1] += 1
+    contador = iniciar_lista(10, 0)
+    for i in range(len(matriz_notas)):
+        contador[matriz_notas[i][indice_materia] - 1] += 1
+    return contador
 
     return contador
 #--------------- carga de datos ---------------#
@@ -255,7 +255,7 @@ def cargar_legajo(legajos_existentes:list) -> int:
     legajo_valido = int(legajo)
     return legajo_valido
 
-def cargar_notas(materias: list, cant_notas: int) -> list:
+def cargar_notas(cant_notas: int) -> list:
     '''
     Ingresa datos solicitados(notas), los valida y los mete a una lista
     Args:
@@ -266,13 +266,13 @@ def cargar_notas(materias: list, cant_notas: int) -> list:
     '''
     notas = [0] * cant_notas
     for i in range(cant_notas):
-        nota = input(f"Ingrese nota del alumno en {materias[i]}: ")
+        nota = input(f"Ingrese nota del alumno en MATERIA_{i+1}: ")
         while validar_nota(nota):
             nota = input(f"Error. Ingrese una nota valida: ")
         notas[i] = int(nota)
     return notas
 
-def cargar_datos(nombres:list, generos:list, legajos:list, notas:list, cant:int, materias: list, cant_notas: int) -> None:
+def cargar_datos(nombres:list, generos:list, legajos:list, notas:list, cant:int, cant_notas: int) -> None:
     '''
     carga todos los datos a sus respectivas listas
     Args:
@@ -288,7 +288,7 @@ def cargar_datos(nombres:list, generos:list, legajos:list, notas:list, cant:int,
         nombres[i] = cargar_nombre()
         generos[i] = cargar_genero()
         legajos[i] = cargar_legajo(legajos)
-        notas[i] = cargar_notas(materias, cant_notas)
+        notas[i] = cargar_notas(cant_notas)
 
 def cargar_promedio(lista_notas: list):
     '''
@@ -408,28 +408,36 @@ def ordenar_descendente(lista_primer_criterio:list, lista_segundo_criterio:list,
                         lista_e[i] = lista_e[j]
                         lista_e[j] = auxiliar_e
 #--------------- impresión de datos ---------------#
-def imprimir_repeticiones_notas(matriz_notas:list, lista_materias: list):
-    '''
-    imprime la cantidad de veces que se repite una nota por materia
-    Args:
-        matriz_notas(list): la matriz de notas que se analizará
-        lista_materias(list): las materias a las que se les contarán las repeticiones
-    '''
-    resultado = cantidad_notas(matriz_notas)
-    for i in range(len(lista_materias)):
-        print(f"recuento de notas para {lista_materias[i]}")
-        for nota in range(10):
-                print(f"nota {nota+1}: {resultado[i][nota]} repeticiones")
-        print("")
+def imprimir_repeticiones_notas(matriz_notas: list):
+    """
+    Muestra un informe del numero de veces que se repite cada nota del 1 al 10 en las 5 materias
 
-def imprimir_promedios_materias(promedio_materias:list, lista_materias:list):
+    Args:
+    matriz_notas (list): matriz 30x5 con las calificaciones
+
+    Returns:
+    None: muestra por consola el recuento de cada nota en las materias 
+    """
+
+    materia=1
+    while materia <= 5:
+        resultado= cantidad_notas(matriz_notas, materia -1)
+        print(f"Recuento de notas para MATERIA_{materia}")
+
+        nota=0
+        while nota <10:
+            print (f"Nota {nota+1}: {resultado[nota]} repeticiones")
+            nota= nota + 1
+        print("")
+        materia = materia + 1
+
+def imprimir_promedios_materias(promedio_materias:list):
     '''
     imprime los promedios de las materias ordenados de forma descendente.
     Args:
         promedios_materias(list): es la lista que contiene los promedios de cada materia
-        lista_materias(list): lista de las materias a las que le pertenece cada promedio
     '''
-    indices = lista_materias
+    indices = [0] * 5
     for i in range(len(indices)):
         for j in range ( i + 1,5):
             if promedio_materias[i] < promedio_materias[j]:
@@ -441,8 +449,8 @@ def imprimir_promedios_materias(promedio_materias:list, lista_materias:list):
                 aux = indices[i]
                 indices[i] = indices[j]
                 indices[j] = aux 
-    for i in range(len(lista_materias)):
-        print (f"Materia: {lista_materias[i]} | Promedio : {promedio_materias[i]}")
+    for i in range(len(indices)):
+        print (f"Materia: MATERIA_{i+1} | Promedio : {promedio_materias[i]}")
 
 def imprimir_dato(nombre:list, genero:list, legajo:list, nota: list, indice = None, promedio = None) -> None:
     if indice == None:
@@ -485,22 +493,21 @@ def imprimir_lista(lista:list):
         print(f"{i}\t", end= " ")
     print(" ")
 
-def imprimir_promedio_mayor(promedios_materias: list, lista_materias: list):
+def imprimir_promedio_mayor(promedios_materias: list):
     '''
     imprime la materia con mayor promedio.
     Args:
         promedio_materias(list): son los promedios de las materias que se utilizaran para ver cual es el mas alto
-        lista_materias(list): la lista de las materias
     '''
     mayor = promedios_materias[0]
     posicion= 0
-
-    for i in range(len(lista_materias)):
+    indice = [0] *5
+    for i in range(len(indice)):
         if promedios_materias[i] > mayor:
             mayor = promedios_materias[i]
             posicion = i
-    nombre_materia= lista_materias[posicion]
-    print(f"Materia con mayor promedio general: {nombre_materia} | Promedio: {mayor}")
+    nombre_materia= indice[posicion]
+    print(f"Materia con mayor promedio general: MATERIA_{nombre_materia} | Promedio: {mayor}")
 
 def imprimir_materias(materias:list):
     '''

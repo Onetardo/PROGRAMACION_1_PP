@@ -72,7 +72,7 @@ while True:
             legajos = iniciar_lista(cant_alumnos, 0)
             notas = iniciar_matriz(cant_alumnos, 5, 0)
             
-            cargar_datos(nombres, generos, legajos, notas, cant_alumnos, materias, 5)
+            cargar_datos(nombres, generos, legajos, notas, cant_alumnos, 5)
             match menu(opciones2):
                 case 1:
                     break
@@ -88,7 +88,7 @@ while True:
             else:
                 print("")
                 print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-                print("nombre   /  genero  /   legajo | Matematica  /  Programacion  /  Arq. y Sistemas Op  /   Ingles   /  Met. de estudio")
+                print("nombre   /  genero  /   legajo | \t\t\t Materias ")
                 print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
                 imprimir_datos(nombres, generos, legajos, notas, cant_alumnos)
                 print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -108,7 +108,7 @@ while True:
             imprimir_datos(nombres, generos, legajos, notas, cant_alumnos, promedios)
             print("")
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            print("nombre   /  genero  /   legajo  |  Matematica  /  Programacion  /  Arq. y Sistemas Op.  /  Ingles  / Met. de estudio/  Promedio")
+            print("nombre   /  genero  /   legajo  |\t\t\t\t Materias \t\t\t\t\t| Promedio")
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             imprimir_datos(nombres, generos, legajos, notas, cant_alumnos, promedios)
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -125,7 +125,7 @@ while True:
             print("━━━━━━━━━━━━━━━━━━━━━━━━━")
             print("")
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            print("nombre   /  genero  /   legajo | Matematica  /  Programacion  /  Arq. y Sistemas Op  /   Ingles   /  Met. de estudio  /  Promedio")
+            print("nombre   /  genero  /   legajo |\t\t\t\t Materias \t\t\t\t\t| Promedio")
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             ordenar_descendente(promedios, notas, generos, legajos, nombres)
             imprimir_datos(nombres, generos, legajos, notas, cant_alumnos, promedios)
@@ -143,9 +143,9 @@ while True:
             print("━━━━━━━━━━━━━━━━━━━━━━━━━")
             print("")
             promedio_materias = calcular_promedio_matriz(notas)
-            imprimir_promedios_materias(promedio_materias, materias)
+            imprimir_promedios_materias(promedio_materias)
             print("")
-            imprimir_promedio_mayor(promedio_materias, materias)
+            imprimir_promedio_mayor(promedio_materias)
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             print("")
             match menu(opciones2):
@@ -161,7 +161,7 @@ while True:
             print("")
             legajo = buscar_por_legajo(legajos)
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            print("nombre   /  genero  /   legajo | Matematica  /  Programacion  /  Arq. y Sistemas Op  /   Ingles   /  Met. de estudio  / Promedio")
+            print("nombre   /  genero  /   legajo |\t\t\t\t Materias \t\t\t\t\t| Promedio")
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             imprimir_dato(nombres, generos, legajos, notas, legajo, promedios)
             print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -180,7 +180,7 @@ while True:
             print("7. repeticiones de notas por materia")
             print("━━━━━━━━━━━━━━━━━━━━━━━━━")
             print("")
-            imprimir_repeticiones_notas(notas, materias)
+            imprimir_repeticiones_notas(notas)
             match menu(opciones2):
                 case 1:
                     break
